@@ -1,30 +1,30 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Menu } from "lucide-react";
 import { getService, services } from "../lib/services";
 
 export const Route = createFileRoute("/services/$serviceId")({
-  loader: ({ params }) => {
+  head: ({ params }) => {
     const service = getService(params.serviceId);
-    if (!service) throw notFound();
-    return service;
-  },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: loaderData ? `${loaderData.title} | Nairika Labs Services` : "Service | Nairika Labs Services" },
-      { name: "description", content: loaderData?.short ?? "Explore Nairika Labs technology services." },
-      { property: "og:title", content: loaderData ? `${loaderData.title} | Nairika Labs Services` : "Nairika Labs Services" },
-      { property: "og:description", content: loaderData?.short ?? "Explore Nairika Labs technology services." },
+    return { meta: [
+      { title: service ? `${service.title} | Nairika Labs Services` : "Service | Nairika Labs Services" },
+      { name: "description", content: service?.short ?? "Explore Nairika Labs technology services." },
+      { property: "og:title", content: service ? `${service.title} | Nairika Labs Services` : "Nairika Labs Services" },
+      { property: "og:description", content: service?.short ?? "Explore Nairika Labs technology services." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+    ] };
+  },
   component: ServicePage,
 });
 
 function BrandMark() { return <span className="brand-mark" aria-hidden="true"><span /><span /><span /></span>; }
 
 function ServicePage() {
-  const service = Route.useLoaderData();
+  const { serviceId } = Route.useParams();
+  const service = getService(serviceId);
+  if (!service) {
+    return <main className="service-page"><section className="service-hero section-pad"><p className="section-label">[ Service unavailable ]</p><h1>We couldn’t find that service.</h1><Link className="back-link" to="/" hash="services"><ArrowLeft size={17} /> View all services</Link></section></main>;
+  }
   const currentIndex = services.findIndex((item) => item.slug === service.slug);
   const nextService = services[(currentIndex + 1) % services.length] ?? services[0];
   const Icon = service.icon;
