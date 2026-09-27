@@ -11,5 +11,5 @@
 
 ## Project architecture
 
-- Keep this as a single-page studio website with section-anchor navigation; the compact structure supports the focused company story.
+- Keep the core company story on the single-page home experience, with dedicated dynamic service-detail routes for deeper content and contact conversion.
 - Define all visual colors and typography as semantic tokens in `src/styles.css`; this keeps the brand system consistent and maintainable.
