@@ -4,7 +4,7 @@ import { ArrowDownRight, ArrowUpRight, Check, Menu, MoveRight } from "lucide-rea
 import { useState, type FormEvent } from "react";
 import heroImage from "../assets/nairika-team-hero.jpg";
 import studioImage from "../assets/nairika-studio.jpg";
-import { submitContactEnquiry } from "../lib/contact.functions";
+import { contactSchema, submitContactEnquiry } from "../lib/contact.functions";
 import { services } from "../lib/services";
 
 export const Route = createFileRoute("/")({
@@ -67,14 +67,22 @@ function Index() {
     setFormStatus("submitting");
     setFormMessage("");
 
-    try {
-      await submitEnquiry({ data: {
+    const input = {
         name: String(formData.get("name") ?? ""),
         email: String(formData.get("email") ?? ""),
         service: String(formData.get("service") ?? ""),
         message: String(formData.get("message") ?? ""),
         website: String(formData.get("website") ?? ""),
-      } });
+    };
+    const validation = contactSchema.safeParse(input);
+    if (!validation.success) {
+      setFormStatus("error");
+      setFormMessage(validation.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    try {
+      await submitEnquiry({ data: validation.data });
       form.reset();
       setFormStatus("success");
       setFormMessage("Thank you. Your enquiry has been received, and we’ll be in touch soon.");
