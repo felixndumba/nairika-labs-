@@ -130,6 +130,11 @@ section h2 { font-size: clamp(3.4rem, 7vw, 7.6rem); }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--surface-dark-muted); }
 .contact-form option { color: var(--foreground); }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--secondary); }
+.contact-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-message { margin: 0; font-size: .82rem; line-height: 1.5; }
+.form-message.success { color: var(--secondary); }
+.form-message.error { color: var(--primary); }
+.form-submit:disabled { cursor: wait; opacity: .65; }
 .form-submit, .service-cta-button { border: 0; background: var(--secondary); color: var(--secondary-foreground); padding: 1rem 1.3rem; display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; font-weight: 900; text-transform: uppercase; font-size: .75rem; cursor: pointer; }
 .site-footer { background: var(--foreground); color: var(--background); padding: 5rem clamp(1.25rem, 6vw, 6rem) 1.5rem; }
 .footer-top { display: grid; grid-template-columns: 1.6fr .7fr 1fr 1fr; gap: 4vw; padding-bottom: 4rem; }

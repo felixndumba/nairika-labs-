@@ -13,3 +13,4 @@
 
 - Keep the core company story on the single-page home experience, with dedicated dynamic service-detail routes for deeper content and contact conversion.
 - Define all visual colors and typography as semantic tokens in `src/styles.css`; this keeps the brand system consistent and maintainable.
+- Store public contact enquiries through a validated server function with privileged database access; this keeps writes controlled and enquiry data private.
