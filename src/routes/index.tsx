@@ -48,7 +48,7 @@ function Footer() {
         </div>
         <div className="footer-column"><strong>Explore</strong><a href="#about">Studio</a><a href="#services">Services</a><a href="#process">How we work</a><a href="#contact">Contact</a></div>
         <div className="footer-column"><strong>Services</strong>{services.map((service) => <Link key={service.slug} to="/services/$serviceId" params={{ serviceId: service.slug }}>{service.title}</Link>)}</div>
-        <div className="footer-column"><strong>Talk to us</strong><a href="mailto:consult@nairikalabs.com">consult@nairikalabs.com</a><span>Nairobi, Kenya</span><span>Available worldwide</span></div>
+        <div className="footer-column"><strong>Talk to us</strong><a href="mailto:consult@nairikalabs.co.ke">consult@nairikalabs.co.ke</a><span>Nairobi, Kenya</span><span>Available worldwide</span></div>
       </div>
       <div className="footer-bottom"><span>© 2026 Nairika Labs Services</span><span>Build with clarity. Grow with confidence.</span><a href="#top">Back to top ↑</a></div>
     </footer>
@@ -146,7 +146,7 @@ function Index() {
       </section>
 
       <section id="contact" className="contact-section section-pad">
-        <div className="contact-intro"><p className="section-label">[ Start a conversation ]</p><h2>Bring us the<br /><em>challenge.</em></h2><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:consult@nairikalabs.com">consult@nairikalabs.com <ArrowUpRight /></a></div>
+        <div className="contact-intro"><p className="section-label">[ Start a conversation ]</p><h2>Bring us the<br /><em>challenge.</em></h2><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:consult@nairikalabs.co.ke">consult@nairikalabs.co.ke <ArrowUpRight /></a></div>
         <form className="contact-form" onSubmit={handleSubmit} noValidate>
           <label>Your name<input name="name" required maxLength={100} autoComplete="name" placeholder="How should we address you?" /></label>
           <label>Work email<input type="email" name="email" required maxLength={255} autoComplete="email" placeholder="you@company.com" /></label>
