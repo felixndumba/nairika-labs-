@@ -1,4 +1,3 @@
-import { createHash } from "crypto";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -17,7 +16,8 @@ export const submitContactEnquiry = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const normalizedEmail = data.email.toLowerCase();
-    const requestFingerprint = createHash("sha256").update(normalizedEmail).digest("hex");
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(normalizedEmail));
+    const requestFingerprint = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
     const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
     const { count, error: countError } = await supabaseAdmin
       .from("contact_enquiries")
