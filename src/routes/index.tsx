@@ -99,7 +99,7 @@ function Index() {
         <img src={heroImage} alt="Nairika Labs team collaborating in a bright technology studio" width={1600} height={1104} />
         <div className="hero-shade" /><div className="hero-gridlines" />
         <div className="hero-copy">
-          <p className="eyebrow"><span /> Independent digital product studio</p>
+
           <h1>Build what<br /><em>moves</em> business.</h1>
           <div className="hero-bottom"><p>We turn ambitious ideas into dependable digital products — from first sketch to launch and beyond.</p><a href="#about" className="circle-link" aria-label="Discover Nairika Labs"><ArrowDownRight size={30} /></a></div>
         </div>
@@ -107,7 +107,7 @@ function Index() {
       </section>
 
       <section id="about" className="intro section-pad">
-        <p className="section-label">[ Who we are ]</p>
+        <p className="section-label"> Who we are </p>
         <div className="intro-main">
           <h2>A partner for<br />every <em>stage.</em></h2>
           <div className="intro-copy"><p>Nairika Labs Services helps organisations make confident technology decisions, build useful digital products and keep them performing long after launch.</p><p>We bring strategy, design, engineering and responsive support together, giving you one accountable partner from the first conversation through continuous improvement.</p><a href="#contact" className="text-link">Talk with a technology partner <ArrowUpRight size={18} /></a></div>
@@ -133,7 +133,7 @@ function Index() {
       </section>
 
       <section id="process" className="process-section section-pad">
-        <div className="process-head"><div><p className="section-label">[ How we work ]</p><h2>Clear steps.<br /><em>Better outcomes.</em></h2></div><p>There are no black boxes. You see the work, understand the decisions and shape the result with us from beginning to end.</p></div>
+        <div className="process-head"><div><p className="section-label"> How we work </p><h2>Clear steps.<br /><em>Better outcomes.</em></h2></div><p>There are no black boxes. You see the work, understand the decisions and shape the result with us from beginning to end.</p></div>
         <div className="process-visual">
           <div className="process-photo"><img src={studioImage} alt="Nairika Labs designers reviewing a digital product interface" loading="lazy" width={1408} height={1008} /><span>Built together</span></div>
           <ol className="process-steps">
@@ -146,7 +146,7 @@ function Index() {
       </section>
 
       <section id="contact" className="contact-section section-pad">
-        <div className="contact-intro"><p className="section-label">[ Start a conversation ]</p><h2>Bring us the<br /><em>challenge.</em></h2><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:consult@nairikalabs.co.ke">consult@nairikalabs.co.ke <ArrowUpRight /></a></div>
+        <div className="contact-intro"><p className="section-label"> Start a conversation </p> <br /><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:consult@nairikalabs.co.ke">consult@nairikalabs.co.ke <ArrowUpRight /></a></div>
         <form className="contact-form" onSubmit={handleSubmit} noValidate>
           <label>Your name<input name="name" required maxLength={100} autoComplete="name" placeholder="How should we address you?" /></label>
           <label>Work email<input type="email" name="email" required maxLength={255} autoComplete="email" placeholder="you@company.com" /></label>
