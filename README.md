@@ -1,14 +1,16 @@
-# Welcome to your Lovable project
+# Nairika Labs Digital Architects
+
+i want you to build a website for my company called nairika labs services its a saas services offered are system dev, web dev, it consultation, designing add 2 others  reference this website for building https://www.plentiersystems.com/ dont use the normal blue and white to build and te normal ui ,,,on ui refence the website i have uplaoded
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/641c168c-7c63-4bc9-aa93-2fc690c5e5a4).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +22,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
