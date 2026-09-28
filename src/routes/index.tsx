@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { ArrowDownRight, ArrowUpRight, Check, Menu, MoveRight } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import heroImage from "../assets/nairika-team-hero.jpg";
 import studioImage from "../assets/nairika-studio.jpg";
+import { contactSchema, submitContactEnquiry } from "../lib/contact.functions";
 import { services } from "../lib/services";
 
 export const Route = createFileRoute("/")({
@@ -45,7 +48,7 @@ function Footer() {
         </div>
         <div className="footer-column"><strong>Explore</strong><a href="#about">Studio</a><a href="#services">Services</a><a href="#process">How we work</a><a href="#contact">Contact</a></div>
         <div className="footer-column"><strong>Services</strong>{services.map((service) => <Link key={service.slug} to="/services/$serviceId" params={{ serviceId: service.slug }}>{service.title}</Link>)}</div>
-        <div className="footer-column"><strong>Talk to us</strong><a href="mailto:hello@nairikalabs.com">hello@nairikalabs.com</a><span>Nairobi, Kenya</span><span>Available worldwide</span></div>
+        <div className="footer-column"><strong>Talk to us</strong><a href="mailto:consult@nairikalabs.com">consult@nairikalabs.com</a><span>Nairobi, Kenya</span><span>Available worldwide</span></div>
       </div>
       <div className="footer-bottom"><span>© 2026 Nairika Labs Services</span><span>Build with clarity. Grow with confidence.</span><a href="#top">Back to top ↑</a></div>
     </footer>
@@ -53,6 +56,42 @@ function Footer() {
 }
 
 function Index() {
+  const submitEnquiry = useServerFn(submitContactEnquiry);
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formMessage, setFormMessage] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    setFormStatus("submitting");
+    setFormMessage("");
+
+    const input = {
+        name: String(formData.get("name") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        service: String(formData.get("service") ?? ""),
+        message: String(formData.get("message") ?? ""),
+        website: String(formData.get("website") ?? ""),
+    };
+    const validation = contactSchema.safeParse(input);
+    if (!validation.success) {
+      setFormStatus("error");
+      setFormMessage(validation.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    try {
+      await submitEnquiry({ data: validation.data });
+      form.reset();
+      setFormStatus("success");
+      setFormMessage("Thank you. Your enquiry has been received, and we’ll be in touch soon.");
+    } catch (error) {
+      setFormStatus("error");
+      setFormMessage(error instanceof Error ? error.message : "We couldn’t send your enquiry. Please try again.");
+    }
+  }
+
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <Header />
@@ -107,13 +146,15 @@ function Index() {
       </section>
 
       <section id="contact" className="contact-section section-pad">
-        <div className="contact-intro"><p className="section-label">[ Start a conversation ]</p><h2>Bring us the<br /><em>challenge.</em></h2><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:hello@nairikalabs.com">hello@nairikalabs.com <ArrowUpRight /></a></div>
-        <form className="contact-form" action="mailto:hello@nairikalabs.com" method="post" encType="text/plain">
-          <label>Your name<input name="name" required placeholder="How should we address you?" /></label>
-          <label>Work email<input type="email" name="email" required placeholder="you@company.com" /></label>
-          <label>Service<select name="service" defaultValue=""><option value="" disabled>What can we help with?</option>{services.map((service) => <option key={service.slug}>{service.title}</option>)}</select></label>
-          <label>Tell us about the challenge<textarea name="message" required placeholder="A few details about your goals, timing and current situation…" rows={5} /></label>
-          <button type="submit" className="form-submit">Send project enquiry <MoveRight /></button>
+        <div className="contact-intro"><p className="section-label">[ Start a conversation ]</p><h2>Bring us the<br /><em>challenge.</em></h2><p>Tell us where you want to go. We’ll respond with thoughtful questions and a practical next step.</p><a href="mailto:consult@nairikalabs.com">consult@nairikalabs.com <ArrowUpRight /></a></div>
+        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+          <label>Your name<input name="name" required maxLength={100} autoComplete="name" placeholder="How should we address you?" /></label>
+          <label>Work email<input type="email" name="email" required maxLength={255} autoComplete="email" placeholder="you@company.com" /></label>
+          <label>Service<select name="service" defaultValue=""><option value="" disabled>What can we help with?</option>{services.map((service) => <option key={service.slug} value={service.title}>{service.title}</option>)}</select></label>
+          <label>Tell us about the challenge<textarea name="message" required minLength={1} maxLength={2000} placeholder="A few details about your goals, timing and current situation…" rows={5} /></label>
+          <label className="contact-honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
+          <button type="submit" className="form-submit" disabled={formStatus === "submitting"}>{formStatus === "submitting" ? "Sending…" : "Send project enquiry"} <MoveRight /></button>
+          {formMessage ? <p className={`form-message ${formStatus}`} role="status" aria-live="polite">{formMessage}</p> : null}
         </form>
       </section>
       <Footer />
